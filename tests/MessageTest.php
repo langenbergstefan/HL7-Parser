@@ -72,7 +72,7 @@ class MessageTest extends PHPUnit_Framework_TestCase {
 
         $this->assertTrue($comps[0] == "x", "Composed field with . as separator");
         $this->assertTrue($comps[1][1] == "y", "Subcomposed field with @ as separator");
-
+        
         # Faulty constuctor
         #
         //$this->assertTrue(! defined(new Net::HL7::Message("MSH|^~\\&*1\rPID|||xxx\r")), "Field separator not repeated");
@@ -173,6 +173,13 @@ class MessageTest extends PHPUnit_Framework_TestCase {
         // Get segment field as string
         $this->assertTrue($msg->getSegmentFieldAsString(0, 3) == "1", "MSH(3) as string");
         $this->assertTrue($msg->getSegmentFieldAsString(1, 2) == "a^b1&b2^c", "PID(2) as string");
+        
+        # Trying parsing real message
+        $adt_a01 = new HL7\Message("MSH|^~\&|ORBIS|UKB|MIRTH|UKB|20181206084300||ADT^A01|29575937|P|2.3|||||D||DE\rEVN|A01|20181206084200|201812060842|02|VZI02269BAS||\rPID|1|4141436|4141436||Surename^Firstname^^^^Dr.|Birthname|19560203|M|||Wall Street 1^^New York^^99999^USA^L||+1999 /999999^^PH~+1999/999999^^FX~Firstname.Surename@email.com^^X.400||||BA|||||||N||USA|\rPV1|1|I|934135^^^04^0001^934135|01^Normalfall^301||^^^04^0001^934190||||J||||||N|||8435613||S||||||||||||||||||2600|||||20181206084200|||||||A\rPV2||P^Privat Allgemeine Pflegeklasse^ORBIS-BEHANDLUNGSKATEGORIE|02^KH-Behandlung, vollstat. nach vorstat.^301||||||||||||||||||N|||I||||||||||||N|\rIN1|1||SELBST|Selbstzahler|^^^^^||||Sonstige^5^^^1&gesetzlich^^^|||||||Surename^Firstname|^|19560203|Wall Street 1^^New York^^99999^USA|||1|||||||||||||||||||||M| ^^^^^|\rIN2|1||^||||||||||||||||||||||||||^PC^100^S|\rZWL|||CHEF|NO|||201812060000|||\rZBE|25878060^ORBIS|20181206084200||INSERT|");
+		  $pid = $adt_a01->getSegmentByIndex(2);
+		  $PN = $pid->getField(5);
+		  $this->assertTrue($PN[0] == "Surename", "Component 0 is Surename");
+		  $this->assertTrue($PN[5] == "Dr.", "Component 5 is Dr.");
     }
 
     /**
