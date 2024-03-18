@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../src/HL7/Segments/MSH.php';
 require_once 'PHPUnit/Framework/TestCase.php';
-class MSHTest extends PHPUnit_Framework_TestCase {
+class MSHTest extends \PHPUnit\Framework\TestCase {
 
     public function test() {
         $msh = new HL7\Segments\MSH();
