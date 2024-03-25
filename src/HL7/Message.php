@@ -396,7 +396,7 @@ class Message {
         }
 
         if ($segment->getField(12)) {
-            $this->hl7Version = $segment->getField(12);
+            $this->_hl7Version = $segment->getField(12);
         }
 
         return true;
