@@ -73,8 +73,7 @@ class MSH extends Segment {
             if (!is_array($hl7Globals)) {
                 $this->setField(1, '|');
                 $this->setField(2, '^~\\&');
-                $this->setField(7, strftime("%Y%m%d%H%M%S"));
-
+                
                 // Set ID field
                 //
                 $this->setField(10, $this->getField(7) . rand(10000, 99999));
@@ -88,8 +87,7 @@ class MSH extends Segment {
                                 $hl7Globals['ESCAPE_CHARACTER'] .
                                 $hl7Globals['SUBCOMPONENT_SEPARATOR']
                                 );
-                $this->setField(7, strftime("%Y%m%d%H%M%S"));
-
+                
                 // Set ID field
                 //
                 $this->setField(10, $this->getField(7) . rand(10000, 99999));
